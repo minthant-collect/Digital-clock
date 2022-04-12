@@ -1,0 +1,73 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital clock</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload=" initClock()">
+    <div class="datetime">
+        <div class="date">
+            <span id="dname">Day</span>,
+            <span id="month">Month</span>
+            <span id="dnum">00</span>,
+            <span id="year">Year</span>
+
+        </div>
+        <div class="time">
+            <span id="ho">00</span>:
+            <span id="min">00</span>:
+            <span id="sec">00</span>
+            <span id="pe">AM</span>
+
+        </div>
+    </div>
+    
+    <!-- js -->
+    <script type="text/javascript">
+function updateClock(){
+    var now=new Date();
+    var dname=now.getDay(),
+        mo=now.getMonth(),
+        dnum=now.getDate(),
+        yr=now.getFullYear(),
+        hor=now.getHours(),
+        min=now.getMinutes(),
+        sec=now.getSeconds(),
+        pe="AM";
+
+        if(hor==0){
+            hor=12;
+        }
+        if(hor>12){
+            hor=hor-12;
+            pe="PM";
+        }
+
+        Number.prototype.pad=function(digits){
+            for(var n=this.toString();n.length< digits;n= 0+n);
+            return n;
+        }
+
+        var months=["January","February","march","april","may","june","july","august","september","october","november","December"];
+        var week=["sunday","Monday","Tuesday","Wednesday","Thursday","friday","saturday"];
+        var ids=["dname","month","dnum","year","ho","min","sec","pe"];
+        
+        var values=[week[dname],months[mo],dnum,yr,min,sec,pe,];
+        for(var i=0;i< ids.length;i++)
+        document.getElementById(ids[i]).firstChild.nodeValue=values[i];
+        
+
+}
+function initClock(){
+ updateClock();
+ window.setInterval("updateClock",1)
+
+
+}
+
+    </script>
+    </body>
+</html>
